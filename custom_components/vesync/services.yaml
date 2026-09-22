@@ -1,3 +1,42 @@
 update_devices:
   name: Update devices
   description: Add new VeSync devices to Home Assistant
+
+cook:
+  name: Cook
+  description: Start the air fryer cooking at a given temperature and time.
+  target:
+    entity:
+      domain: button
+      integration: vesync
+  fields:
+    temperature:
+      name: Temperature
+      description: Target temperature in °C (40-400, model-dependent range applies).
+      required: true
+      example: 200
+      selector:
+        number:
+          min: 40
+          max: 400
+          unit_of_measurement: "°C"
+          mode: box
+    time:
+      name: Time
+      description: Cook time in minutes (1-60).
+      required: true
+      example: 18
+      selector:
+        number:
+          min: 1
+          max: 60
+          unit_of_measurement: min
+          mode: box
+
+stop:
+  name: Stop
+  description: End the current cooking or preheating cycle and return to standby.
+  target:
+    entity:
+      domain: button
+      integration: vesync
